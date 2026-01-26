@@ -60,11 +60,11 @@ prt=[]
 for i in sub:
     i.append((max_p-i[4]+1)/max_p)
 dist=[]
-dist1=[]
+score=[]
 for i in range(0,3):
     for j in range(len(sub)):
             dist.append([res_pad[i][1],sub[j][0],sub[j][1],math.dist([res_pad[i][2],res_pad[i][3]],[sub[j][2],sub[j][3]])])
-
+            score.append([res_pad[i][1],sub[j][0],sub[j][1]])
 for i in range(0, 3):
     d = i * len(sub)
     di = (i + 1) * len(sub)
@@ -73,18 +73,34 @@ for i in range(0, 3):
     max_d = max(x[3] for x in dist[d:di])
 
     for j in range(len(sub)):
-        a = dist[d + j][3] - min_d
+        a = dist[d + j][3] - min_d + 30
         b = max_d - min_d
-
         if b != 0:  # avoid division by zero
-            dist1.append(1 - (a / b))
+            dist[j+((i)*len(sub))].append(1 - (a / b))
         else:
-            dist1.append(0)
-# for i in sub:
-# score=((0.6*i[5])+(0.4*))
-print(sub)
-print(dist1)
-print(dist)
+            dist[j+((i)*len(sub))].append(0)
+alpha=0.6
+lambda_=0.1
+for i in range(len(dist)):
+    if dist[i][0]=='Blue':
+        for j in range(len(sub)):
+            if sub[j][0]==dist[i][1] and sub[j][1]==dist[i][2]:
+                score[i].append(sub[j][5] * math.exp(-lambda_ * dist[i][4]))
+                '''score[i].append((alpha*sub[j][5])+((1-alpha)*dist[i][4]))'''
+    elif dist[i][0]=='Pink':
+        for j in range(len(sub)):
+            if sub[j][0]==dist[i][1] and sub[j][1]==dist[i][2]:
+                score[i].append(sub[j][5] * math.exp(-lambda_ * dist[i][4]))
+                ''' score[i].append((alpha*sub[j][5])+((1-alpha)*dist[i][4]))'''
+    elif dist[i][0]=='Gray':
+        for j in range(len(sub)):
+            if sub[j][0]==dist[i][1] and sub[j][1]==dist[i][2]:
+                score[i].append(sub[j][5] * math.exp(-lambda_ * dist[i][4]))
+                '''score[i].append((alpha*sub[j][5])+((1-alpha)*dist[i][4]))'''
+
+
+
+print(score)
 
 # -----------------------------
 # Display
