@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.pyc
+
+# Data
+data/
+*.png
+
+# Logs
+*.log
+
+# Reports 
+reports/
+*.docx
+*.pdf
+
+# OS
+.DS_Store
+Thumbs.db
