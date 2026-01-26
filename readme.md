@@ -30,6 +30,8 @@ denoted by circle). Among these, two rescue pads are situated on land and one re
 located in water. While all rescue pads serve the same purpose, civilians are required to be
 assigned to the best available rescue pad based on their position in the image and their medical
 emergency while keeping in check the capacity.
+-  <img width="380" height="379" alt="image" src="https://github.com/user-attachments/assets/e2039493-5740-4304-a21b-8fdad2daa5c3" />
+
 Sample Image
 The task for you is to devise a method to assign each of the casualty to the best possible rescue
 camp while making sure that the final casualty configuration for each of the camp is their respective
@@ -59,6 +61,8 @@ averaging over the number of casualties.
 4. A list of the names of the input images , arranges in descending order of their rescue ratio
 (Pr)
 The expected output for the given sample image is given below
+- <img width="612" height="613" alt="image" src="https://github.com/user-attachments/assets/87f11843-297f-4e61-bfa2-5592830ee0fd" />
+Sample output (Arrows are used for explanation)
 1. [ [[3,3],[1,2]] , [[2,2],[3,1]] , [[3,2],[2,2]] ] green star was assigned to pink camp due
 to lower priority than yellow triangle although distance must also be considered which
 will be based on your score formula.
@@ -70,7 +74,12 @@ for grey] ]
 images given as input) (not related to the given sample image)
 Example:
 Input images:
- Image1 Image2
+ - Image1 
+<img width="179" height="179" alt="image" src="https://github.com/user-attachments/assets/531ffbe8-5b3c-436a-be33-51917e6ab1c3" />
+
+ - Image2
+<img width="183" height="179" alt="image" src="https://github.com/user-attachments/assets/c411ca4e-6e39-4b48-8f9c-8c6519bdf280" />
+
 Sample Output:
 Segmented Images for ocean and land.
 Image_n= [ [[1,1],[1,2],[1,3],[3,2]] , [[3,1],[2,3],[3,3]] , [[2,1],[2,2]] ] for max 9 casualties.
