@@ -67,7 +67,7 @@ ocean_mask = cv.bitwise_not(land_mask)
 # -----------------------------
 overlay = f.output.copy()
 
-LAND_COLOR  = np.array([60, 190, 190])   # perceptually balanced land
+LAND_COLOR  = np.array([0, 255, 255])   # perceptually balanced land
 OCEAN_COLOR = np.array([190, 60, 60])    # perceptually balanced ocean
 
 overlay[land_mask > 0] = LAND_COLOR

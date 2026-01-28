@@ -1,7 +1,7 @@
 import cv2 as cv
 import numpy as np
 
-img = cv.imread('data/1.png') 
+img = cv.imread('data/3.png') 
 def rescale_frame(frame,scale=1):
     width=int(frame.shape[1]*scale)
     height=int(frame.shape[0]*scale)
