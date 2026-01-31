@@ -206,6 +206,69 @@ def visualize_path(base_img, path, total_score):
                cv.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2)
     return vis
 
+def build_image_list(final_assignments):
+
+    AGE_GROUP = {
+        "Star": 3,
+        "Triangle": 2,
+        "Square": 1
+    }
+
+    MEDICAL_EMERGENCY = {
+        "Red": 3,
+        "Yellow": 2,
+        "Green": 1
+    }
+
+    Image_n = {
+        "Blue": [],
+        "Pink": [],
+        "Gray": []
+    }
+
+    for a in final_assignments:
+        Image_n[a["camp_color"]].append([
+            AGE_GROUP[a["target_shape"]],
+            MEDICAL_EMERGENCY[a["target_color"]]
+        ])
+
+    return [
+        Image_n["Blue"],
+        Image_n["Pink"],
+        Image_n["Gray"]
+    ]
+
+def compute_camp_priority(final_assignments, scale=10):
+    """
+    Computes sum of scores for each camp, multiplies by `scale`,
+    and returns list in order: [Blue, Pink, Gray]
+    
+    Output format:
+    Camp_priority = [[blue_val, pink_val, gray_val]]
+    """
+
+    camp_score_sum = {
+        "Blue": 0.0,
+        "Pink": 0.0,
+        "Gray": 0.0
+    }
+
+    # 1. Sum scores per camp
+    for a in final_assignments:
+        camp = a["camp_color"]
+        camp_score_sum[camp] += a["step_score"]
+
+    # 2. Scale scores
+    blue_val = int(round(camp_score_sum["Blue"] * scale))
+    pink_val = int(round(camp_score_sum["Pink"] * scale))
+    gray_val = int(round(camp_score_sum["Gray"] * scale))
+
+    # 3. Required output structure
+    Camp_priority = [[blue_val, pink_val, gray_val]]
+
+    return Camp_priority
+
+
 # ======================================================
 # 6. MAIN
 # ======================================================
@@ -230,14 +293,19 @@ if __name__ == "__main__":
         sources=sources,
         current_capacities=initial_caps
     )
-    
-    # 4. Print
-    print("\n=== OPTIMAL ASSIGNMENT (MAX SCORE) ===")
-    print(f"Total Score: {final_score:.4f}")
-    
-    for i, step in enumerate(optimal_path):
-        print(f"{i+1}. {step['target_color']} {step['target_shape']} "
-              f"-> {step['camp_color']} Camp | Step Score: {step['step_score']:.4f}")
+
+    # 4. Build Image_n
+    Image_ = build_image_list(optimal_path)
+
+    print("\n=== Image_ Representation ===")
+    print(Image_)
+
+    Camp_priority = compute_camp_priority(optimal_path, scale=10)
+
+    print("\n=== Camp Priority ===")
+    print(Camp_priority)
+
+
 
     # 5. Visualize
     final_img = visualize_path(s.output, optimal_path, final_score)

@@ -1,18 +1,8 @@
 import cv2 as cv
 import numpy as np
 
-for i in range(1, 11):
-    # Dynamically create the path string
-    # f"{i}" inserts the current number into the string
-    path = f"data/{i}.png" 
-    
-    img = cv2.imread(path)
 
-    # ALWAYS check if image loaded successfully
-    if img is None:
-        print(f"Error: Could not read {path}")
-        continue
-        
+img = cv.imread("data/1.png")
 def rescale_frame(frame,scale=1):
     width=int(frame.shape[1]*scale)
     height=int(frame.shape[0]*scale)
@@ -134,4 +124,3 @@ for cnt in contours:
         (0, 0, 255), 2
     )
     cv.circle(output, (cx, cy), 5, (0, 0, 255), -1)
-

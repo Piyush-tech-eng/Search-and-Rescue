@@ -78,4 +78,3 @@ overlay[ocean_mask > 0] = OCEAN_COLOR
 # -----------------------------
 output = cv.addWeighted(overlay, 0.45, f.output, 0.55, 0)
 
-

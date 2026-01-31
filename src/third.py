@@ -299,6 +299,43 @@ def visualize_assignments(output_img, final_assignments, camp_lookup):
 
     return vis
 
+def build_image_list(final_assignments):
+
+    AGE_GROUP = {
+        "Star": 3,
+        "Triangle": 2,
+        "Square": 1
+    }
+
+    MEDICAL_EMERGENCY = {
+        "Red": 3,
+        "Yellow": 2,
+        "Green": 1
+    }
+
+    # Initialize structure
+    Image_n = {
+        "Blue": [],
+        "Pink": [],
+        "Gray": []
+    }
+
+    for a in final_assignments:
+        shape = a["target_shape"]
+        color = a["target_color"]
+        camp = a["camp_color"]
+
+        Image_n[camp].append([
+            AGE_GROUP[shape],
+            MEDICAL_EMERGENCY[color]
+        ])
+
+    # Return in fixed order
+    return [
+        Image_n["Blue"],
+        Image_n["Pink"],
+        Image_n["Gray"]
+    ]
 
 # ======================================================
 # 9. MAIN
@@ -342,12 +379,11 @@ if __name__ == "__main__":
     )
 
     print("\n=== FINAL ASSIGNMENTS ===")
-    for a in final_assignments:
-        print(
-            f"{a['camp_color']} camp -> "
-            f"{a['target_shape']} ({a['target_color']}) at {a['target_center']} "
-            f"| priority = {a['priority']} | score = {round(a['score'], 3)}"
-        )
+    Image_ = build_image_list(final_assignments)
+
+    print("\n=== IMAGE_n LIST ===")
+    print(Image_)
+
 
 # -----------------------------
 # Display
